@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joris Groen — UX Leader & Behavioural Psychologist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ===========================
+           DESIGN TOKENS
+        =========================== */
+        :root {
+            --bg:           #F8F8F6;
+            --bg-2:         #F1F1EC;
+            --surface:      #FFFFFF;
+            --text-primary: #111111;
+            --text-secondary: #5C5C5C;
+            --text-muted:   #9A9A9A;
+            --accent:       #1C3045;
+            --accent-mid:   #2C4A62;
+            --accent-subtle: #EBF0F5;
+            --border:       rgba(17, 17, 17, 0.09);
+            --border-strong: rgba(17, 17, 17, 0.16);
+            --shadow-sm:    0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md:    0 6px 20px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+            --shadow-lg:    0 20px 48px rgba(0,0,0,0.12), 0 6px 12px rgba(0,0,0,0.06);
+            --radius:       10px;
+            --radius-lg:    18px;
+            --nav-h:        64px;
+            --max-w:        1080px;
+            /* Type scale — Major Third 1.25 */
+            --text-xs:    0.75rem;   /* 12px */
+            --text-sm:    0.875rem;  /* 14px */
+            --text-base:  1rem;      /* 16px */
+            --text-lg:    1.25rem;   /* 20px */
+            --text-xl:    1.5rem;    /* 24px */
+            --text-2xl:   2rem;      /* 32px */
+            --text-3xl:   2.75rem;   /* 44px */
+            --text-4xl:   3.5rem;    /* 56px */
+            --text-5xl:   4.5rem;    /* 72px */
+        }
+
+        /* ===========================
+           RESET & BASE
+        =========================== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            font-size: var(--text-base);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; display: block; }
+
+        /* ===========================
+           NAVIGATION
+        =========================== */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: var(--nav-h);
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(248, 248, 246, 0.88);
+            border-bottom: 1px solid var(--border);
+            transition: background 0.3s;
+        }
+        .nav-inner {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: 0 40px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-logo {
+            font-weight: 700;
+            font-size: var(--text-sm);
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 36px;
+            list-style: none;
+        }
+        .nav-links a {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-cta {
+            background: var(--text-primary) !important;
+            color: var(--bg) !important;
+            padding: 9px 22px !important;
+            border-radius: 40px !important;
+            font-weight: 600 !important;
+            transition: background 0.2s, transform 0.15s !important;
+        }
+        .nav-cta:hover {
+            background: #2a2a2a !important;
+            transform: translateY(-1px) !important;
+        }
+        .nav-mobile-contact {
+            display: none;
+            background: var(--text-primary);
+            color: var(--bg);
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: var(--text-xs);
+            font-weight: 600;
+        }
+
+        /* ===========================
+           SECTION UTILITY
+        =========================== */
+        .section {
+            padding: 104px 40px;
+        }
+        .container {
+            max-width: var(--max-w);
+            margin: 0 auto;
+        }
+        .section-label {
+            font-size: var(--text-xs);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+        }
+        .section-title {
+            font-size: clamp(1.85rem, 3.5vw, var(--text-3xl));
+            font-weight: 700;
+            letter-spacing: -0.035em;
+            line-height: 1.12;
+            color: var(--text-primary);
+        }
+
+        /* ===========================
+           HERO
+        =========================== */
+        #hero {
+            padding-top: calc(var(--nav-h) + 88px);
+            padding-bottom: 104px;
+            padding-left: 40px;
+            padding-right: 40px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        /* subtle background grid */
+        #hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 64px 64px;
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 100%);
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .hero-inner {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+        }
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: var(--text-xs);
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            padding: 7px 16px;
+            border-radius: 40px;
+            margin-bottom: 36px;
+            box-shadow: var(--shadow-sm);
+            opacity: 0;
+            animation: fadeUp 0.65s cubic-bezier(0.16,1,0.3,1) 0.05s forwards;
+        }
+        .hero-pill-dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: #2DD4BF;
+            box-shadow: 0 0 0 2px rgba(45,212,191,0.25);
+        }
+        .hero-title {
+            font-size: clamp(2.75rem, 6vw, var(--text-5xl));
+            font-weight: 800;
+            line-height: 1.06;
+            letter-spacing: -0.045em;
+            color: var(--text-primary);
+            max-width: 14ch;
+            opacity: 0;
+            animation: fadeUp 0.65s cubic-bezier(0.16,1,0.3,1) 0.15s forwards;
+            margin-bottom: 28px;
+        }
+        .hero-title em {
+            font-style: normal;
+            color: var(--accent);
+        }
+        .hero-sub {
+            font-size: clamp(1rem, 1.5vw, var(--text-lg));
+            color: var(--text-secondary);
+            max-width: 54ch;
+            line-height: 1.7;
+            font-weight: 400;
+            opacity: 0;
+            animation: fadeUp 0.65s cubic-bezier(0.16,1,0.3,1) 0.28s forwards;
+            margin-bottom: 48px;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 0.65s cubic-bezier(0.16,1,0.3,1) 0.42s forwards;
+        }
+        .btn-primary {
+            background: var(--text-primary);
+            color: var(--bg);
+            padding: 15px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: var(--text-sm);
+            letter-spacing: -0.01em;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary:hover {
+            background: #2a2a2a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(17,17,17,0.2);
+        }
+        .btn-secondary {
+            color: var(--text-primary);
+            padding: 15px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: var(--text-sm);
+            border: 1.5px solid var(--border-strong);
+            background: var(--surface);
+            transition: background 0.2s, border-color 0.2s, transform 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-secondary:hover {
+            border-color: #888;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ===========================
+           STATS
+        =========================== */
+        #stats {
+            padding: 56px 40px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .stats-grid {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+        .stat-item {
+            padding: 8px 0;
+            text-align: center;
+            border-right: 1px solid var(--border);
+        }
+        .stat-item:last-child { border-right: none; }
+        .stat-number {
+            font-size: clamp(2rem, 3.5vw, var(--text-3xl));
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: var(--text-xs);
+            color: var(--text-secondary);
+            margin-top: 8px;
+            font-weight: 500;
+            line-height: 1.4;
+            max-width: 16ch;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ===========================
+           ABOUT
+        =========================== */
+        #about { background: var(--bg); }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 96px;
+            align-items: start;
+            margin-top: 56px;
+        }
+        .about-text p {
+            font-size: var(--text-base);
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 22px;
+        }
+        .about-text p:last-child { margin-bottom: 0; }
+        .about-text strong { color: var(--text-primary); font-weight: 600; }
+        .expertise-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .expertise-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            padding: 20px;
+            background: var(--surface);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .expertise-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        .expertise-icon {
+            width: 40px; height: 40px;
+            min-width: 40px;
+            border-radius: 8px;
+            background: var(--accent-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .expertise-title {
+            font-weight: 600;
+            font-size: var(--text-sm);
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .expertise-desc {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
+
+        /* ===========================
+           CLIENTS STRIP
+        =========================== */
+        #clients {
+            padding: 56px 40px;
+            background: var(--bg-2);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .clients-label {
+            font-size: var(--text-xs);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 36px;
+        }
+        .clients-row {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 12px 24px;
+        }
+        .client-chip {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 8px 20px;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .client-chip:hover {
+            color: var(--text-primary);
+            border-color: var(--border-strong);
+        }
+
+        /* ===========================
+           BOOK
+        =========================== */
+        #book {
+            background: var(--accent);
+            color: #F8F8F6;
+        }
+        #book .section-label { color: rgba(248,248,246,0.45); }
+        #book .section-title { color: #F8F8F6; }
+        .book-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 80px;
+            align-items: center;
+            margin-top: 56px;
+        }
+        .book-cover {
+            width: 220px;
+            height: 310px;
+            border-radius: 6px 12px 12px 6px;
+            background: linear-gradient(155deg, #12B5B8 0%, #0D8F92 45%, #076769 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 24px;
+            box-shadow:
+                -6px 0 12px rgba(0,0,0,0.35),
+                0 32px 64px rgba(0,0,0,0.5),
+                0 8px 16px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            transform: perspective(800px) rotateY(4deg) rotateX(-1deg);
+            transition: transform 0.4s ease;
+        }
+        .book-cover:hover {
+            transform: perspective(800px) rotateY(0deg) rotateX(0deg) translateY(-8px);
+        }
+        /* Book spine illusion */
+        .book-cover::after {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 12px;
+            background: rgba(0,0,0,0.2);
+        }
+        /* Subtle pattern */
+        .book-cover::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 70% 20%, rgba(255,255,255,0.12) 0%, transparent 60%);
+        }
+        .book-hand-icon {
+            position: absolute;
+            top: 24px;
+            right: 16px;
+            font-size: 3.5rem;
+            opacity: 0.18;
+            transform: rotate(-10deg);
+        }
+        .book-title-lg {
+            font-size: 1.75rem;
+            font-weight: 900;
+            line-height: 0.95;
+            color: #fff;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 6px;
+        }
+        .book-sub-sm {
+            font-size: 0.6rem;
+            color: rgba(255,255,255,0.75);
+            font-weight: 500;
+            line-height: 1.4;
+            position: relative;
+            z-index: 1;
+        }
+        .book-author-sm {
+            font-size: 0.62rem;
+            color: rgba(255,255,255,0.85);
+            font-weight: 600;
+            margin-top: 14px;
+            position: relative;
+            z-index: 1;
+        }
+        .book-desc {
+            font-size: var(--text-base);
+            color: rgba(248,248,246,0.72);
+            line-height: 1.8;
+            margin-bottom: 32px;
+        }
+        .book-highlights {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+        .book-highlight {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: var(--text-sm);
+            color: rgba(248,248,246,0.88);
+            line-height: 1.5;
+        }
+        .bh-dot {
+            width: 5px; height: 5px;
+            min-width: 5px;
+            border-radius: 50%;
+            background: rgba(248,248,246,0.35);
+            margin-top: 7px;
+        }
+        .btn-book {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #F8F8F6;
+            color: var(--accent);
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: var(--text-sm);
+            transition: background 0.2s, transform 0.15s;
+        }
+        .btn-book:hover {
+            background: #E8E8E2;
+            transform: translateY(-2px);
+        }
+
+        /* ===========================
+           CONTACT
+        =========================== */
+        #contact { background: var(--bg); }
+        .contact-inner {
+            max-width: 600px;
+            margin-top: 48px;
+        }
+        .contact-desc {
+            font-size: var(--text-base);
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
+        }
+        .contact-method:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--border-strong);
+        }
+        .cm-icon {
+            width: 42px; height: 42px;
+            min-width: 42px;
+            border-radius: 10px;
+            background: var(--accent-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+        }
+        .cm-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+        .cm-value {
+            font-size: var(--text-sm);
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .cm-arrow {
+            margin-left: auto;
+            color: var(--text-muted);
+            flex-shrink: 0;
+            transition: transform 0.2s, color 0.2s;
+        }
+        .contact-method:hover .cm-arrow {
+            transform: translateX(3px);
+            color: var(--text-primary);
+        }
+
+        /* ===========================
+           FOOTER
+        =========================== */
+        footer {
+            padding: 28px 40px;
+            border-top: 1px solid var(--border);
+            background: var(--surface);
+        }
+        .footer-inner {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .footer-name {
+            font-weight: 700;
+            font-size: var(--text-sm);
+            letter-spacing: -0.02em;
+        }
+        .footer-copy {
+            font-size: var(--text-xs);
+            color: var(--text-muted);
+        }
+
+        /* ===========================
+           ANIMATIONS
+        =========================== */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(22px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1),
+                        transform 0.65s cubic-bezier(0.16,1,0.3,1);
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===========================
+           RESPONSIVE
+        =========================== */
+        @media (max-width: 900px) {
+            .about-grid { grid-template-columns: 1fr; gap: 56px; }
+            .book-grid   { grid-template-columns: 1fr; gap: 48px; }
+            .book-cover  { display: none; }
+        }
+        @media (max-width: 700px) {
+            :root { --nav-h: 60px; }
+            .section     { padding: 72px 24px; }
+            #hero        { padding: calc(var(--nav-h) + 56px) 24px 72px; min-height: auto; }
+            #stats       { padding: 48px 24px; }
+            #clients     { padding: 48px 24px; }
+            footer       { padding: 24px; }
+            .nav-inner   { padding: 0 24px; }
+            .nav-links   { display: none; }
+            .nav-mobile-contact { display: block; }
+            .stats-grid  { grid-template-columns: repeat(2, 1fr); }
+            .stat-item   { border-right: none; padding: 16px 0; }
+            .stats-grid .stat-item:nth-child(odd) { border-right: 1px solid var(--border); }
+            .footer-inner { flex-direction: column; gap: 6px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════
+     NAVIGATION
+═══════════════════════════════ -->
+<nav>
+    <div class="nav-inner">
+        <a href="#" class="nav-logo">Joris Groen</a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#book">Book</a></li>
+            <li><a href="#contact" class="nav-cta">Get in touch</a></li>
+        </ul>
+        <a href="#contact" class="nav-mobile-contact">Contact</a>
+    </div>
+</nav>
+
+<!-- ═══════════════════════════════
+     HERO
+═══════════════════════════════ -->
+<section id="hero">
+    <div class="hero-inner">
+        <div class="hero-pill">
+            <div class="hero-pill-dot"></div>
+            UX Leader &amp; Behavioural Psychologist · Amsterdam
+        </div>
+        <h1 class="hero-title">
+            Designing AI that <em>actually</em> moves people.
+        </h1>
+        <p class="hero-sub">
+            I'm Joris — 20+ years applying psychology to digital products.
+            Specialised in AI, conversational interfaces, and the science behind
+            why people click, trust, and convert.
+        </p>
+        <div class="hero-actions">
+            <a href="#contact" class="btn-primary">
+                Get in touch
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+            </a>
+            <a href="#book" class="btn-secondary">
+                My book
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════
+     STATS
+═══════════════════════════════ -->
+<section id="stats">
+    <div class="stats-grid">
+        <div class="stat-item fade-in">
+            <div class="stat-number">20+</div>
+            <div class="stat-label">Years in UX &amp; behavioural psychology</div>
+        </div>
+        <div class="stat-item fade-in">
+            <div class="stat-number">30M+</div>
+            <div class="stat-label">Users reached via AI-powered products</div>
+        </div>
+        <div class="stat-item fade-in">
+            <div class="stat-number">200+</div>
+            <div class="stat-label">Clients served across Europe &amp; Asia</div>
+        </div>
+        <div class="stat-item fade-in">
+            <div class="stat-number">#1</div>
+            <div class="stat-label">Dutch Management Book Charts bestseller</div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════
+     ABOUT
+═══════════════════════════════ -->
+<section id="about" class="section">
+    <div class="container">
+        <p class="section-label fade-in">About</p>
+        <h2 class="section-title fade-in">
+            Data-led, psychology-informed,<br>focused on results.
+        </h2>
+        <div class="about-grid">
+            <div class="about-text fade-in">
+                <p>
+                    I'm a Dutch UX leader and behavioural psychologist with
+                    <strong>20+ years turning human psychology into better digital products.</strong>
+                    My work sits at the intersection of AI, conversational design, and growth —
+                    where understanding why people behave the way they do translates directly into outcomes.
+                </p>
+                <p>
+                    At <strong>Booking.com</strong> I was one of the initiators of the GenAI-powered
+                    AI Trip Planner, now used by millions across iOS. I've coached AI product teams
+                    in Indonesia (DANA, 190M users), designed dashboards for fast-growing Dutch AI
+                    startups, and helped brands like <strong>Air France-KLM, Coca-Cola, and ING</strong>
+                    use behavioural science to drive measurable results.
+                </p>
+                <p>
+                    I co-founded <strong>Buyerminds</strong> — an award-winning digital design agency
+                    with a 100% focus on conversion — and ran it for 8 years across Amsterdam, Brussels,
+                    Bangkok, and Beijing.
+                </p>
+                <p>
+                    My approach is always the same: start with psychology, design for behaviour,
+                    test everything, and ship what works.
+                </p>
+            </div>
+            <div class="fade-in">
+                <div class="expertise-list">
+                    <div class="expertise-item">
+                        <div class="expertise-icon">🤖</div>
+                        <div>
+                            <div class="expertise-title">AI &amp; Conversational Design</div>
+                            <div class="expertise-desc">Designing LLM-powered assistants and chatbots that genuinely help users — from Booking.com's Trip Planner to banking AIs serving 190M people.</div>
+                        </div>
+                    </div>
+                    <div class="expertise-item">
+                        <div class="expertise-icon">🧠</div>
+                        <div>
+                            <div class="expertise-title">Behavioural Psychology</div>
+                            <div class="expertise-desc">Applying proven cognitive science and persuasion principles to create interfaces that influence behaviour ethically and effectively.</div>
+                        </div>
+                    </div>
+                    <div class="expertise-item">
+                        <div class="expertise-icon">📈</div>
+                        <div>
+                            <div class="expertise-title">Digital Growth &amp; Conversion</div>
+                            <div class="expertise-desc">Running A/B tests and redesigns with real impact — 30% fewer partner inquiries, 300% more reviews, doubled conversion to qualified leads.</div>
+                        </div>
+                    </div>
+                    <div class="expertise-item">
+                        <div class="expertise-icon">🎯</div>
+                        <div>
+                            <div class="expertise-title">UX Leadership</div>
+                            <div class="expertise-desc">Led multi-cultural teams of 40+ across Europe and Asia. Setting UX strategy and coaching organisations to build products that scale.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════
+     CLIENTS
+═══════════════════════════════ -->
+<section id="clients">
+    <p class="clients-label">Worked with &amp; served</p>
+    <div class="clients-row">
+        <div class="client-chip">Booking.com</div>
+        <div class="client-chip">DANA Indonesia</div>
+        <div class="client-chip">Air France-KLM</div>
+        <div class="client-chip">Bol.com</div>
+        <div class="client-chip">ING</div>
+        <div class="client-chip">Unilever</div>
+        <div class="client-chip">Coca-Cola</div>
+        <div class="client-chip">Mercedes-Benz</div>
+        <div class="client-chip">BNP Paribas</div>
+        <div class="client-chip">WWF</div>
+        <div class="client-chip">TUI</div>
+        <div class="client-chip">Freeday.AI</div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════
+     BOOK
+═══════════════════════════════ -->
+<section id="book" class="section">
+    <div class="container">
+        <p class="section-label fade-in">The Book</p>
+        <h2 class="section-title fade-in">The playbook for<br>online persuasion.</h2>
+        <div class="book-grid">
+            <div class="book-cover fade-in">
+                <span class="book-hand-icon">👆</span>
+                <div class="book-title-lg">Online<br>Influence</div>
+                <div class="book-sub-sm">Boost your results with<br>proven behavioral science</div>
+                <div class="book-author-sm">Joris Groen &amp; Bas Wouters</div>
+            </div>
+            <div class="fade-in">
+                <p class="book-desc">
+                    In 2020 I wrote <em>Online Influence</em> — a guide to applying behavioural
+                    psychology to digital design and online persuasion. It helps marketers,
+                    designers, and product people apply proven science to boost results.
+                    Endorsed by Dr. Robert Cialdini, the world's leading authority on influence.
+                </p>
+                <div class="book-highlights">
+                    <div class="book-highlight">
+                        <div class="bh-dot"></div>
+                        <span>Reached #1 in Dutch Management Book Charts</span>
+                    </div>
+                    <div class="book-highlight">
+                        <div class="bh-dot"></div>
+                        <span>Won the PIM Award for Marketing Text Book of the Year</span>
+                    </div>
+                    <div class="book-highlight">
+                        <div class="bh-dot"></div>
+                        <span>Translated into 7 languages — Spanish, Dutch, Chinese, Japanese, Thai, Indonesian, Russian</span>
+                    </div>
+                    <div class="book-highlight">
+                        <div class="bh-dot"></div>
+                        <span>Endorsed by Dr. Robert Cialdini — <em>"A must-read for everyone in the field of online persuasion"</em></span>
+                    </div>
+                </div>
+                <a href="https://www.amazon.com/s?k=online+influence+joris+groen+bas+wouters" target="_blank" rel="noopener" class="btn-book">
+                    See on Amazon
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════
+     CONTACT
+═══════════════════════════════ -->
+<section id="contact" class="section">
+    <div class="container">
+        <p class="section-label fade-in">Contact</p>
+        <h2 class="section-title fade-in">Let's connect.</h2>
+        <div class="contact-inner fade-in">
+            <p class="contact-desc">
+                Whether you're looking for a UX leader, an AI design partner,
+                or someone who can translate psychology into better products —
+                I'd love to hear from you.
+            </p>
+            <div class="contact-methods">
+                <a href="mailto:groenjoris@gmail.com" class="contact-method">
+                    <div class="cm-icon">✉️</div>
+                    <div>
+                        <div class="cm-label">Email</div>
+                        <div class="cm-value">groenjoris@gmail.com</div>
+                    </div>
+                    <svg class="cm-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+                </a>
+                <a href="https://wa.me/31614242266" target="_blank" rel="noopener" class="contact-method">
+                    <div class="cm-icon">💬</div>
+                    <div>
+                        <div class="cm-label">WhatsApp</div>
+                        <div class="cm-value">+31 6 14 24 22 66</div>
+                    </div>
+                    <svg class="cm-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/jorisgroen" target="_blank" rel="noopener" class="contact-method">
+                    <div class="cm-icon">🔗</div>
+                    <div>
+                        <div class="cm-label">LinkedIn</div>
+                        <div class="cm-value">linkedin.com/in/jorisgroen</div>
+                    </div>
+                    <svg class="cm-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════
+     FOOTER
+═══════════════════════════════ -->
+<footer>
+    <div class="footer-inner">
+        <span class="footer-name">Joris Groen</span>
+        <span class="footer-copy">© 2026 · UX Leader &amp; Behavioural Psychologist · Amsterdam</span>
+    </div>
+</footer>
+
+<script>
+    // Scroll-triggered fade-in
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -32px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach((el, i) => {
+        // Stagger siblings within the same parent
+        const siblings = Array.from(el.parentElement.querySelectorAll(':scope > .fade-in'));
+        const idx = siblings.indexOf(el);
+        if (idx > 0) el.style.transitionDelay = `${idx * 0.08}s`;
+        observer.observe(el);
+    });
+
+    // Stats stagger
+    document.querySelectorAll('.stat-item.fade-in').forEach((el, i) => {
+        el.style.transitionDelay = `${i * 0.1}s`;
+    });
+</script>
+
+</body>
+</html>
