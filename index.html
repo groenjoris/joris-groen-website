@@ -72,11 +72,11 @@
             background: rgba(248, 248, 246, 0.88);
             border-bottom: 1px solid var(--border);
             transition: background 0.3s;
+            padding: 0 40px;
         }
         .nav-inner {
             max-width: var(--max-w);
             margin: 0 auto;
-            padding: 0 40px;
             height: 100%;
             display: flex;
             align-items: center;
@@ -653,19 +653,19 @@
         }
         @media (max-width: 700px) {
             :root { --nav-h: 60px; }
+            nav          { padding: 0 24px; }
             .section     { padding: 72px 24px; }
             #hero        { padding: calc(var(--nav-h) + 56px) 24px 72px; min-height: auto; }
             #stats       { padding: 48px 24px; }
             #clients     { padding: 48px 24px; }
             footer       { padding: 24px; }
-            .nav-inner   { padding: 0 24px; }
             .nav-links   { display: none; }
             .nav-mobile-contact { display: block; }
             .stats-grid  { grid-template-columns: repeat(2, 1fr); }
             .stat-item   { border-right: none; padding: 16px 0; }
             .stats-grid .stat-item:nth-child(odd) { border-right: 1px solid var(--border); }
             .footer-inner { flex-direction: column; gap: 6px; text-align: center; }
-            .book-cover  { display: none; }
+            .book-cover  { width: 160px; margin: 0 auto; }
             .hero-photo  { display: none; }
         }
     </style>
