@@ -182,6 +182,28 @@
             margin: 0 auto;
             width: 100%;
             position: relative;
+            display: flex;
+            align-items: center;
+            gap: 64px;
+        }
+        .hero-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .hero-photo {
+            flex-shrink: 0;
+            width: 320px;
+            opacity: 0;
+            animation: fadeUp 0.65s cubic-bezier(0.16,1,0.3,1) 0.55s forwards;
+        }
+        .hero-photo img {
+            width: 100%;
+            height: 430px;
+            object-fit: cover;
+            object-position: center top;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            display: block;
         }
         .hero-pill {
             display: inline-flex;
@@ -436,75 +458,19 @@
         }
         .book-cover {
             width: 220px;
-            height: 310px;
+            height: auto;
             border-radius: 6px 12px 12px 6px;
-            background: linear-gradient(155deg, #12B5B8 0%, #0D8F92 45%, #076769 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 24px;
             box-shadow:
                 -6px 0 12px rgba(0,0,0,0.35),
                 0 32px 64px rgba(0,0,0,0.5),
                 0 8px 16px rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
             flex-shrink: 0;
+            display: block;
             transform: perspective(800px) rotateY(4deg) rotateX(-1deg);
             transition: transform 0.4s ease;
         }
         .book-cover:hover {
             transform: perspective(800px) rotateY(0deg) rotateX(0deg) translateY(-8px);
-        }
-        /* Book spine illusion */
-        .book-cover::after {
-            content: '';
-            position: absolute;
-            left: 0; top: 0; bottom: 0;
-            width: 12px;
-            background: rgba(0,0,0,0.2);
-        }
-        /* Subtle pattern */
-        .book-cover::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: radial-gradient(circle at 70% 20%, rgba(255,255,255,0.12) 0%, transparent 60%);
-        }
-        .book-hand-icon {
-            position: absolute;
-            top: 24px;
-            right: 16px;
-            font-size: 3.5rem;
-            opacity: 0.18;
-            transform: rotate(-10deg);
-        }
-        .book-title-lg {
-            font-size: 1.75rem;
-            font-weight: 900;
-            line-height: 0.95;
-            color: #fff;
-            letter-spacing: -0.04em;
-            text-transform: uppercase;
-            position: relative;
-            z-index: 1;
-            margin-bottom: 6px;
-        }
-        .book-sub-sm {
-            font-size: 0.6rem;
-            color: rgba(255,255,255,0.75);
-            font-weight: 500;
-            line-height: 1.4;
-            position: relative;
-            z-index: 1;
-        }
-        .book-author-sm {
-            font-size: 0.62rem;
-            color: rgba(255,255,255,0.85);
-            font-weight: 600;
-            margin-top: 14px;
-            position: relative;
-            z-index: 1;
         }
         .book-desc {
             font-size: var(--text-base);
@@ -665,9 +631,12 @@
            RESPONSIVE
         =========================== */
         @media (max-width: 900px) {
-            .about-grid { grid-template-columns: 1fr; gap: 56px; }
+            .about-grid  { grid-template-columns: 1fr; gap: 56px; }
             .book-grid   { grid-template-columns: 1fr; gap: 48px; }
-            .book-cover  { display: none; }
+            .book-cover  { width: 180px; }
+            .hero-inner  { flex-direction: column; gap: 40px; align-items: flex-start; }
+            .hero-photo  { width: 100%; max-width: 280px; }
+            .hero-photo img { height: 340px; }
         }
         @media (max-width: 700px) {
             :root { --nav-h: 60px; }
@@ -683,6 +652,8 @@
             .stat-item   { border-right: none; padding: 16px 0; }
             .stats-grid .stat-item:nth-child(odd) { border-right: 1px solid var(--border); }
             .footer-inner { flex-direction: column; gap: 6px; text-align: center; }
+            .book-cover  { display: none; }
+            .hero-photo  { display: none; }
         }
     </style>
 </head>
@@ -708,27 +679,32 @@
 ═══════════════════════════════ -->
 <section id="hero">
     <div class="hero-inner">
-        <div class="hero-pill">
-            <div class="hero-pill-dot"></div>
-            UX Leader &amp; Behavioural Psychologist · Amsterdam
+        <div class="hero-content">
+            <div class="hero-pill">
+                <div class="hero-pill-dot"></div>
+                UX Leader &amp; Behavioural Psychologist · Amsterdam
+            </div>
+            <h1 class="hero-title">
+                Designing AI that <em>actually</em> moves people.
+            </h1>
+            <p class="hero-sub">
+                I'm Joris — 20+ years applying psychology to digital products.
+                Specialised in AI, conversational interfaces, and the science behind
+                why people click, trust, and convert.
+            </p>
+            <div class="hero-actions">
+                <a href="#contact" class="btn-primary">
+                    Get in touch
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+                </a>
+                <a href="#book" class="btn-secondary">
+                    My book
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                </a>
+            </div>
         </div>
-        <h1 class="hero-title">
-            Designing AI that <em>actually</em> moves people.
-        </h1>
-        <p class="hero-sub">
-            I'm Joris — 20+ years applying psychology to digital products.
-            Specialised in AI, conversational interfaces, and the science behind
-            why people click, trust, and convert.
-        </p>
-        <div class="hero-actions">
-            <a href="#contact" class="btn-primary">
-                Get in touch
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
-            </a>
-            <a href="#book" class="btn-secondary">
-                My book
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            </a>
+        <div class="hero-photo">
+            <img src="images/Boom_Joris%20Groen-2648-def-lr.jpg" alt="Joris Groen" loading="eager" />
         </div>
     </div>
 </section>
@@ -856,12 +832,7 @@
         <p class="section-label fade-in">The Book</p>
         <h2 class="section-title fade-in">The playbook for<br>online persuasion.</h2>
         <div class="book-grid">
-            <div class="book-cover fade-in">
-                <span class="book-hand-icon">👆</span>
-                <div class="book-title-lg">Online<br>Influence</div>
-                <div class="book-sub-sm">Boost your results with<br>proven behavioral science</div>
-                <div class="book-author-sm">Joris Groen &amp; Bas Wouters</div>
-            </div>
+            <img src="images/book.webp" alt="Online Influence — Joris Groen &amp; Bas Wouters" class="book-cover fade-in" loading="lazy" />
             <div class="fade-in">
                 <p class="book-desc">
                     In 2020 I wrote <em>Online Influence</em> — a guide to applying behavioural
@@ -910,19 +881,11 @@
                 I'd love to hear from you.
             </p>
             <div class="contact-methods">
-                <a href="mailto:groenjoris@gmail.com" class="contact-method">
+                <a href="mailto:joris@joris-groen.com" class="contact-method">
                     <div class="cm-icon">✉️</div>
                     <div>
                         <div class="cm-label">Email</div>
-                        <div class="cm-value">groenjoris@gmail.com</div>
-                    </div>
-                    <svg class="cm-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
-                </a>
-                <a href="https://wa.me/31614242266" target="_blank" rel="noopener" class="contact-method">
-                    <div class="cm-icon">💬</div>
-                    <div>
-                        <div class="cm-label">WhatsApp</div>
-                        <div class="cm-value">+31 6 14 24 22 66</div>
+                        <div class="cm-value">joris@joris-groen.com</div>
                     </div>
                     <svg class="cm-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
                 </a>
