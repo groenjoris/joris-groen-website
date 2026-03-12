@@ -462,10 +462,11 @@
            BOOK
         =========================== */
         #book {
-            background: var(--bg-2);
+            background: var(--accent);
+            color: #F8F8F6;
         }
-        #book .section-label { color: var(--text-muted); }
-        #book .section-title { color: var(--text-primary); }
+        #book .section-label { color: rgba(248,248,246,0.45); }
+        #book .section-title { color: #F8F8F6; }
         .book-grid {
             display: grid;
             grid-template-columns: auto 1fr;
@@ -486,7 +487,7 @@
         }
         .book-desc {
             font-size: var(--text-base);
-            color: var(--text-secondary);
+            color: rgba(248,248,246,0.72);
             line-height: 1.8;
             margin-bottom: 32px;
         }
@@ -501,22 +502,22 @@
             align-items: flex-start;
             gap: 12px;
             font-size: var(--text-sm);
-            color: var(--text-secondary);
+            color: rgba(248,248,246,0.88);
             line-height: 1.5;
         }
         .bh-dot {
             width: 5px; height: 5px;
             min-width: 5px;
             border-radius: 50%;
-            background: var(--text-muted);
+            background: rgba(248,248,246,0.35);
             margin-top: 7px;
         }
         .btn-book {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: var(--accent);
-            color: #F8F8F6;
+            background: #F8F8F6;
+            color: var(--accent);
             padding: 14px 28px;
             border-radius: 40px;
             font-weight: 700;
@@ -524,7 +525,7 @@
             transition: background 0.2s, transform 0.15s;
         }
         .btn-book:hover {
-            background: var(--accent-mid);
+            background: #E8E8E2;
             transform: translateY(-2px);
         }
 
@@ -678,7 +679,7 @@
     <div class="nav-inner">
         <a href="#" class="nav-logo">
             <div class="nav-avatar">
-                <img src="images/Boom_Joris%20Groen-2648-def-lr.jpg" alt="" aria-hidden="true" />
+                <img src="images/Joris_cropped.png" alt="" aria-hidden="true" />
             </div>
             Joris Groen
         </a>
@@ -849,7 +850,7 @@
         <p class="section-label fade-in">The Book</p>
         <h2 class="section-title fade-in">The playbook for<br>online persuasion.</h2>
         <div class="book-grid">
-            <img src="images/book.webp" alt="Online Influence — Joris Groen &amp; Bas Wouters" class="book-cover fade-in" loading="lazy" />
+            <img src="images/OII-cover-mockup transparant.png" alt="Online Influence — Joris Groen &amp; Bas Wouters" class="book-cover fade-in" loading="lazy" />
             <div class="fade-in">
                 <p class="book-desc">
                     In 2020 I wrote <em>Online Influence</em> — a guide to applying behavioural
