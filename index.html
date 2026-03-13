@@ -645,8 +645,8 @@
         =========================== */
         @media (max-width: 900px) {
             .about-grid  { grid-template-columns: 1fr; gap: 56px; }
-            .book-grid   { grid-template-columns: 1fr; gap: 48px; }
-            .book-cover  { width: 180px; }
+            .book-grid   { grid-template-columns: 160px 1fr; gap: 32px; }
+            .book-cover  { width: 160px; }
             .hero-inner  { flex-direction: column; gap: 40px; align-items: flex-start; }
             .hero-photo  { width: 100%; max-width: 280px; }
             .hero-photo img { height: 340px; }
@@ -661,11 +661,13 @@
             footer       { padding: 24px; }
             .nav-links   { display: none; }
             .nav-mobile-contact { display: block; }
+            .nav-logo span { font-size: var(--text-xs); white-space: nowrap; }
             .stats-grid  { grid-template-columns: repeat(2, 1fr); }
             .stat-item   { border-right: none; padding: 16px 0; }
             .stats-grid .stat-item:nth-child(odd) { border-right: 1px solid var(--border); }
             .footer-inner { flex-direction: column; gap: 6px; text-align: center; }
-            .book-cover  { width: 160px; margin: 0 auto; }
+            .book-grid   { grid-template-columns: 1fr; gap: 32px; }
+            .book-cover  { width: 130px; }
             .hero-photo  { display: none; }
         }
     </style>
@@ -681,14 +683,14 @@
             <div class="nav-avatar">
                 <img src="images/Joris_cropped.png" alt="" aria-hidden="true" />
             </div>
-            Joris Groen
+            <span>Joris Groen's Personal Site</span>
         </a>
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#book">Book</a></li>
             <li><a href="#contact" class="nav-cta">Get in touch</a></li>
         </ul>
-        <a href="#contact" class="nav-mobile-contact">Contact</a>
+        <a href="#contact" class="nav-mobile-contact">Get in touch</a>
     </div>
 </nav>
 
